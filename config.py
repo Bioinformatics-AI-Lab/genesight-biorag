@@ -63,7 +63,7 @@ CLINVAR_URL        = "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/var
 CLINVAR_GZ         = DATA_DIR / "variant_summary.txt.gz"
 
 # ── Feature definitions (NB1 engineers these; NB2 must use the same list) ─────
-# ClinVar-derived features (10)
+# ClinVar-derived features
 FEATURE_COLS_CLINVAR = [
     'is_missense',
     'is_synonymous',
@@ -73,10 +73,9 @@ FEATURE_COLS_CLINVAR = [
     'is_frameshift',
     'is_transition',
     'chrom_encoded',
-    'num_submitters',
-    'review_confidence',
+    # removed: num_submitters, review_confidence
+    # these encode ClinVar curation quality, not biology
 ]
-
 # gnomAD / gene constraint features (4)
 FEATURE_COLS_GNOMAD = [
     'log_af_genome',
@@ -86,7 +85,8 @@ FEATURE_COLS_GNOMAD = [
 ]
 
 # Combined feature list — used for X matrix in NB2, SHAP in NB2, display in NB4
-ALL_FEATURES = FEATURE_COLS_CLINVAR + FEATURE_COLS_GNOMAD  # length = 14
+# 12 features total: 8 consequence/annotation + 4 population genetics
+ALL_FEATURES = FEATURE_COLS_CLINVAR + FEATURE_COLS_GNOMAD
 
 # Metadata columns carried alongside features (not used for training)
 META_COLS = ['GeneSymbol', 'Chromosome', 'Start']

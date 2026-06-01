@@ -73,9 +73,11 @@ FEATURE_COLS_CLINVAR = [
     'is_frameshift',
     'is_transition',
     'chrom_encoded',
-    'num_submitters',
-    'review_confidence',
+    # num_submitters and review_confidence removed — data leakage
+    # they encode ClinVar curation confidence, not biology
+    # num_submitters is used as a quality filter in NB1 instead
 ]
+
 
 # gnomAD / gene constraint features (4)
 FEATURE_COLS_GNOMAD = [
@@ -86,7 +88,7 @@ FEATURE_COLS_GNOMAD = [
 ]
 
 # Combined feature list — used for X matrix in NB2, SHAP in NB2, display in NB4
-ALL_FEATURES = FEATURE_COLS_CLINVAR + FEATURE_COLS_GNOMAD  # length = 14
+ALL_FEATURES = FEATURE_COLS_CLINVAR + FEATURE_COLS_GNOMAD  # length = 12
 
 # Metadata columns carried alongside features (not used for training)
 META_COLS = ['GeneSymbol', 'Chromosome', 'Start']
